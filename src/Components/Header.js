@@ -1,6 +1,10 @@
 import { Avatar, Dropdown, Link, Navbar, Text } from "@nextui-org/react";
 import { Layout } from "./Layout.js";
 import { AcmeLogo } from "./AcmeLogo.js";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function App() {
   const collapseItems = [
@@ -15,6 +19,21 @@ export default function App() {
     "Help & Feedback",
     "Log Out",
   ];
+
+  const [categories, setCategories] = useState([]);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    axios
+      .get("https://v2.jokeapi.dev/categories")
+      .then((res) => {
+        setCategories(res.data.categories);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Layout>
@@ -38,12 +57,19 @@ export default function App() {
           hideIn="xs"
           variant="highlight-rounded"
         >
-          <Navbar.Link href="#">Features</Navbar.Link>
-          <Navbar.Link isActive href="#">
-            Шутки
-          </Navbar.Link>
-          <Navbar.Link href="#">Pricing</Navbar.Link>
-          <Navbar.Link href="#">Company</Navbar.Link>
+          {categories.map((item) => (
+            <Navbar.Link
+              href={item}
+              key={categories.indexOf(item)}
+              isActive={location.pathname.slice(1) === item}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(item);
+              }}
+            >
+              {item}
+            </Navbar.Link>
+          ))}
         </Navbar.Content>
         <Navbar.Content
           css={{
