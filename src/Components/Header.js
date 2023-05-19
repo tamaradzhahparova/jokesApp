@@ -29,7 +29,7 @@ export default function App() {
         >
           <AcmeLogo />
           <Text b color="inherit" hideIn="xs">
-            ACME
+            Jokes
           </Text>
         </Navbar.Brand>
         <Navbar.Content
@@ -40,7 +40,7 @@ export default function App() {
         >
           <Navbar.Link href="#">Features</Navbar.Link>
           <Navbar.Link isActive href="#">
-            Customers
+            Шутки
           </Navbar.Link>
           <Navbar.Link href="#">Pricing</Navbar.Link>
           <Navbar.Link href="#">Company</Navbar.Link>
