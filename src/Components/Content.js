@@ -12,8 +12,6 @@ export const Content = () => {
     ? location.pathname.slice(1)
     : "Any";
 
-  console.log(location);
-
   const fetchData = () => {
     axios
       .get(`https://v2.jokeapi.dev/joke/${category}?type=single`)
